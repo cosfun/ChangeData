@@ -27,58 +27,24 @@ fun main(args: Array<String>){
     println("test")
     val list=ArrayList<Data1Info>()
     list.add(d)
-    changeData(list,Data2Info::class.java)
-    /*val mc = d::class.java
-    val shili=mc.newInstance()
-    for(i in mc.declaredMethods){
-        if(i.name.startsWith("set"))
-            println(i.name)
-    }
-    val m2 = mc.getMethod("getId")
-    println(m2.invoke(d))
-    // 查看每个构造方法需要的参数
-    //val id=mc.declaredFields[0]
-    val modec=Data2Info::class.java
-    //val method=modec.getMethod("setId",)*/
+    val s=magic(list,Data2Info::class.java)
+    println(s.size)
 }
-fun <T:Serializable> changeData(infoList: ArrayList<T>,model:Class<*>) {
+fun <T:Any> magic(infoList: ArrayList<T>,model:Class<*>,magicType:Int=-1):ArrayList<Any>{
+    var count=magicType
+    count++
     val anser=ArrayList<Any>()
-    val samClass=infoList[0]::class.java
-    val innerName=samClass.declaredClasses[0].name
-    val methosName=ArrayList<String>()
-    val methosParmsType=ArrayList<Class<*>>()
-    val methosValues=ArrayList<String>()
-    println(samClass.declaredClasses[0].name)
-    for(i in samClass.declaredMethods){
-        for(j in i.genericParameterTypes){
-            if(i.name.startsWith("set")&&!j.typeName.toString().contains(innerName)){
-                methosName.add(i.name)
-                methosParmsType.add(i.parameterTypes[0].name.javaClass)
-                println(i.parameterTypes[0].name.javaClass)
-            }
+    if(0==infoList.size)
+        return anser
+    magicData<T> {
+        this.magicType=count
+        saveData=anser
+        Nod_Y_Lle_Delfrydol{
+            this initData infoList
+        }
+        Le_Cheile_Beidh_Muid{
+            this initData model
         }
     }
-    infoList.forEach {
-        val newModel=model.newInstance()
-        methosName.forEachIndexed { index, s ->
-            val method=model.getMethod(s,methosParmsType[index]).invoke(newModel,"3")
-        }
-        anser.add(newModel)
-    }
-    println("over")
-}
-fun <T:Serializable> changeData(info: T,model:Class<*>){
-    val mc = info::class.java
-    for(i in mc.declaredClasses){
-            println(i.name)
-    }
-    println("TEST------------------")
-    /*for(i in mc.declaredMethods){
-        if(i.name.startsWith("set"))
-            println(i.name)
-    }*/
-    val new=model.newInstance()
-   val modec=model.getMethod("setId",mc.getMethod("getId").genericReturnType.typeName.javaClass)
-    modec.invoke(new,"34")
-    println(new)
+    return anser
 }
