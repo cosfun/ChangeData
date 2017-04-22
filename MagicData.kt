@@ -39,7 +39,7 @@ class MagicData<T:Any> {
                 // if(i.name.startsWith("set")&&!j.toString().contains(innerName)){
                 if(i.name.startsWith("set")&&!j.toString().contains(innerName)){
                     methosName.add(i.name)
-                    methosParmsType.add(i.parameterTypes[0].name.javaClass)
+                    methosParmsType.add(i.parameterTypes[0])
                 }
             }
             // if(i.name.startsWith("get")&&i.genericReturnType.toString().contains(innerName)){
